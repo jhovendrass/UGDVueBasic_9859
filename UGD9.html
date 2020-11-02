@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script src="vue.js"></script>
+    <title>Number Guessing</title>
+</head>
+<body> 
+    <h1>Tebak Angka</h1>
+    <div id="container">
+        <p>Masukkan angka 1 sampai 10</p>
+        <input type="number" v-model="userInput">
+        <div>
+            <b>{{ message }}</b>
+    </div>
+    <div>
+        <p>{{nama}}|{{npm}}|{{kelas}}</p>
+    </div>
+    </div>
+
+</body>
+
+<script>
+        new Vue({
+        el: '#container',
+        data: {
+            userInput: 0,
+            randomNumber: 5,
+       
+            nama: "Jhovendra Soemaschris",
+            npm: 180709859,
+            kelas: 'PAW Kelas B',
+         
+        },
+        methods: {
+            angkaRandom: function() {
+                return Math.floor((Math.random() * 10) + 1);
+            }
+        },
+        computed: {
+            message: function() {
+                if (this.userInput == this.randomNumber) {
+                    this.randomNumber = this.angkaRandom(1, 10);
+                    return 'Angka Masukan Benar. Selamat!';
+                } else {
+                    this.randomNumber = this.angkaRandom(1, 10);
+                    return 'Angka Masukan Salah. Coba Lagi!';
+                }
+
+            }
+        }
+    });
+    </script>
+</html>
