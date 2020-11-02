@@ -5,17 +5,26 @@ body {
 #container {
     background-color: whitesmoke;
     border: 5px solid yellowgreen;
-    height: 275px;
+    height: 325px;
     width: 750px;
+    margin: auto;
+    text-align: center;
+}
+
+#name {
+    background-color: whitesmoke;
+    border: 5px solid yellowgreen;
+    height: 25px;
+    width: 344px;
     margin: auto;
     text-align: center;
 }
 
 h1{
     text-align: center;
-    color: black;
+    color:red;
 }
 
 p {
-    color: black;
+    color:red;
 }

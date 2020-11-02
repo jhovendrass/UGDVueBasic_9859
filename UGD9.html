@@ -9,16 +9,41 @@
     <title>Number Guessing</title>
 </head>
 <body> 
-    <h1>Tebak Angka</h1>
+    <h1>Game Tebak Angka</h1>
     <div id="container">
-        <p>Masukkan angka 1 sampai 10</p>
-        <input type="number" v-model="userInput">
+            <br>
         <div>
-            <b>{{ message }}</b>
+            <div>
+                <div>Masukkan angka 1 sampai 10</div><br>
+                    <input type="number" class="form-control" v-model="tebakan" :disabled="isDisabled"/>
+                    <br> <br>
+                    <button class="btn btn-primary btn-sm" @click="tebak" :disabled="isDisabled">Tebak</button>
+                    <br> <br><br><br>
+                    Kesempatan : {{ kesempatan }}
+            </div>
+        </div>
+
+        <div class="text-center" v-show="benar">
+            <p>Selamat anda Menebak dengan benar!</p> 
+            <button class="btn btn-primary" @click="restartGame" >Restart?</button>
+        </div>
+
+        <div class="text-center" v-show="kalah">
+            <p>Tebakan kamu salah semua, restart game?</p> 
+            <button class="btn btn-primary" @click="restartGame" >Restart?</button>
+        </div>
+
+        <div class="text-center" v-show="salah">
+            <p>Tebakan salah, coba lagi.</p> 
+            <button class="btn btn-warning" @click="cobalagi" >Try again</button>
+        </div>
+
+            <p>Angka yang benar : {{ angka }}</p>
+       
+    <div id="name">
+        {{nama}}|{{npm}}|{{kelas}}
     </div>
-    <div>
-        <p>{{nama}}|{{npm}}|{{kelas}}</p>
-    </div>
+
     </div>
 
 </body>
@@ -27,31 +52,41 @@
         new Vue({
         el: '#container',
         data: {
-            userInput: 0,
-            randomNumber: 5,
-       
+            angka: Math.floor(Math.random() * 10)+1,
+            tebakan:0,
+            kesempatan:3,
+            salah:undefined,
+            benar:undefined,
+            kalah:undefined,
+            isDisabled:false,
+            
             nama: "Jhovendra Soemaschris",
             npm: 180709859,
             kelas: 'PAW Kelas B',
-         
         },
         methods: {
-            angkaRandom: function() {
-                return Math.floor((Math.random() * 10) + 1);
+           tebak(){
+            if(this.tebakan == this.angka){
+                this.benar = 1;
+            }else {
+                    this.salah =1;
+                    this.isDisabled = true;
+                    angka: Math.floor(Math.random() * 10)+1;
+                    this.kesempatan--;
+                    if(this.kesempatan==0){
+                        this.kalah=1;
+                        this.salah = undefined;
+                    }
             }
         },
-        computed: {
-            message: function() {
-                if (this.userInput == this.randomNumber) {
-                    this.randomNumber = this.angkaRandom(1, 10);
-                    return 'Angka Masukan Benar. Selamat!';
-                } else {
-                    this.randomNumber = this.angkaRandom(1, 10);
-                    return 'Angka Masukan Salah. Coba Lagi!';
+           cobalagi(){
+                this.isDisabled = false;
+                this.salah = undefined;
+           },
+           restartGame(){
+               location.reload();
                 }
-
-            }
-        }
+        },
     });
     </script>
 </html>
